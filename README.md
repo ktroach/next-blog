@@ -1,8 +1,13 @@
-# [Skateshop13](https://skateshop.sadmn.com/)
+# Next Blog
 
-This is an open source e-commerce skateshop build with everything new in Next.js 13. It is bootstrapped with `create-t3-app`.
+This is just a prototype for a simple Blog site built in NextJS. Leveraging ContentLayer and MDX to create a Blog site with typical CMS style Admin features. The purpose is to be a proof of concept for using ContentLayer as a quasi-headless CMS. 
 
-[![Skateshop13](./public/images/screenshot/landing-page-screenshot.png)](https://skateshop.sadmn.com/)
+How does it work? Checkout ContentLayer's docs on how it is similar to a headless CMS but without the overhead and complexity that is typically associated with a CMS. ContentLayer allows you to write your content in MDX, it compiles and generates the MDX into an EJS module. The generated EJS modules are packaged so that you can import them into your React components. See https://website-git-new-landing-page-schick.vercel.app/docs/concepts/how-contentlayer-works
+
+Forked from Skateshop13. Credits to sadmann7 for creating the stack and the excellent NextJS project, Skateshop13:
+https://github.com/sadmann7
+https://github.com/sadmann7/skateshop
+
 
 > **Warning**
 > This project is still in development and is not ready for production use.
@@ -78,23 +83,6 @@ pnpm run stripe:listen
 
 Follow the deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
 
-## Contributing
-
-Contributions are welcome! Please open an issue if you have any questions or suggestions. Your contributions will be acknowledged. See the [contributing guide](./CONTRIBUTING.md) for more information.
-
-## Contributors
-
-Thanks goes to these wonderful people for their contributions:
-
-<p align="center">
- <a href="https://github.com/sadmann7/skateshop/graphs/contributors">
-   <img src="https://contrib.rocks/image?repo=sadmann7/skateshop" />
- </a>
-</p>
-
-<p align="center">
- Made with <a rel="noopener noreferrer" target="_blank" href="https://contrib.rocks">contrib.rocks</a>
-</p>
 
 ## License
 
