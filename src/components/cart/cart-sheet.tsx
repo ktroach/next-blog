@@ -23,12 +23,12 @@ export async function CartSheet() {
   const itemCount = cartLineItems.reduce(
     (total, item) => total + Number(item.quantity),
     0
-  )
+  );
 
   const cartTotal = cartLineItems.reduce(
     (total, item) => total + Number(item.quantity) * Number(item.price),
     0
-  )
+  );
 
   return (
     <Sheet>
@@ -37,7 +37,8 @@ export async function CartSheet() {
           aria-label="Open cart"
           variant="outline"
           size="icon"
-          className="relative"
+          className="relative" 
+
         >
           {itemCount > 0 && (
             <Badge
@@ -50,7 +51,7 @@ export async function CartSheet() {
           <Icons.cart className="h-4 w-4" aria-hidden="true" />
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex w-full flex-col pr-0 sm:max-w-lg">
+      <SheetContent className="top-16 flex w-full flex-col pr-0 sm:max-w-lg">
         <SheetHeader className="px-1">
           <SheetTitle>Cart {itemCount > 0 && `(${itemCount})`}</SheetTitle>
         </SheetHeader>

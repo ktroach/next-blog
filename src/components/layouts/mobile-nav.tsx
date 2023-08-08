@@ -46,8 +46,8 @@ export function MobileNav({ mainNavItems, sidebarNavItems }: MobileNavProps) {
             className="flex items-center"
             onClick={() => setIsOpen(false)}
           >
-            <Icons.logo className="mr-2 h-4 w-4" aria-hidden="true" />
-            <span className="font-bold">{siteConfig.name}</span>
+            {/* <Icons.logo className="mr-2 h-4 w-4" aria-hidden="true" /> */}
+            <span className="font-bold h-16">{siteConfig.name}</span>
           </Link>
         </div>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">

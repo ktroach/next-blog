@@ -24,18 +24,14 @@ export const metadata: Metadata = {
     "Tailwind CSS",
     "Server Components",
     "Server Actions",
-    "Skateshop",
-    "Skateboard",
-    "Skateboarding",
-    "Kickflip",
   ],
   authors: [
     {
-      name: "sadmann7",
-      url: "https://github.com/sadmann7",
+      name: "k",
+      url: "https://github.com/ktroach",
     },
   ],
-  creator: "sadmann7",
+  creator: "ktroach",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
@@ -53,7 +49,7 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [`${siteConfig.url}/og.jpg`],
-    creator: "@sadmann7",
+    creator: "@enigmaticobject",
   },
   icons: {
     icon: "/favicon.ico",

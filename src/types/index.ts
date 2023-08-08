@@ -65,7 +65,7 @@ export interface DataTableFilterableColumn<TData>
   options: Option[]
 }
 
-export type CartItem = z.infer<typeof cartItemSchema>
+// export type CartItem = z.infer<typeof cartItemSchema>
 
 export type CheckoutItem = z.infer<typeof checkoutItemSchema>
 

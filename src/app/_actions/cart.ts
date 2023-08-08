@@ -46,6 +46,7 @@ export async function getCartAction(): Promise<CartLineItem[]> {
     .where(inArray(products.id, uniqueProductIds))
 
   const allCartLineItems = cartLineItems.map((item) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const quantity = cart?.items?.find(
       (cartItem) => cartItem.productId === item.id
     )?.quantity

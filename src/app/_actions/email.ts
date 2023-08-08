@@ -32,7 +32,7 @@ export async function updateEmailPreferencesAction(
     await resend.emails.send({
       from: env.EMAIL_FROM_ADDRESS,
       to: emailPreference.email,
-      subject: "Welcome to skateshop",
+      subject: "Welcome to BLOG",
       react: NewsletterWelcomeEmail({
         firstName: user?.firstName ?? undefined,
         fromEmail: env.EMAIL_FROM_ADDRESS,

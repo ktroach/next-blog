@@ -36,7 +36,10 @@
     "**/*.mjs",
     ".next/types/**/*.ts",
     "./contentlayer.config.js",
-    ".contentlayer/generated"
+    ".contentlayer/generated",
+    "__tests__/*.ts",
+    "__tests__/*.tsx",
+    "jest.config.js"    
   ],
   "exclude": ["node_modules"]
 }

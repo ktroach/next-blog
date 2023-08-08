@@ -95,6 +95,7 @@ export function BoardBuilder({
   const addToCart = React.useCallback(
     async (product: Product) => {
       try {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
         if (!cartItems.map((item) => item.productId).includes(product.id)) {
           // Only allow one product per subcategory in cart
           const productIdWithSameSubcategory = cartItems.find(

@@ -1,3 +1,5 @@
+// SRC 
+
 import Link from "next/link"
 import type { User } from "@clerk/nextjs/dist/types/server"
 
@@ -20,6 +22,7 @@ import { Combobox } from "@/components/combobox"
 import { Icons } from "@/components/icons"
 import { MainNav } from "@/components/layouts/main-nav"
 import { MobileNav } from "@/components/layouts/mobile-nav"
+import { ThemeToggle } from "./theme-toggle"
 
 interface SiteHeaderProps {
   user: User | null
@@ -34,7 +37,8 @@ export function SiteHeader({ user }: SiteHeaderProps) {
       ?.emailAddress ?? ""
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background">
+    // eslint-disable-next-line tailwindcss/no-custom-classname
+    <header className="sticky top-0 z-[1000] w-full border-b bg-white dark:bg-black">
       <div className="container flex h-16 items-center">
         <MainNav items={siteConfig.mainNav} />
         <MobileNav
@@ -43,11 +47,14 @@ export function SiteHeader({ user }: SiteHeaderProps) {
         />
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-2">
-            <Combobox />
+
+            <ThemeToggle />
             <CartSheet />
+            
+
             {user ? (
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+                <DropdownMenuTrigger className="" asChild>
                   <Button
                     variant="secondary"
                     className="relative h-8 w-8 rounded-full"
@@ -61,7 +68,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuContent className="w-56 my-3" align="end" forceMount>
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">
