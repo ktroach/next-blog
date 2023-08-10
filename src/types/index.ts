@@ -6,6 +6,22 @@ import { type userPrivateMetadataSchema } from "@/lib/validations/auth"
 import type { cartItemSchema, checkoutItemSchema } from "@/lib/validations/cart"
 import { type Icons } from "@/components/icons"
 
+export type Blog = {
+  id: string
+  title: string
+  description: string
+  datetime: string
+  status: "preview" | "published" | "deleted" | "expired"
+}
+
+
+export type Payment = {
+  id: string
+  amount: number
+  status: "pending" | "processing" | "success" | "failed"
+  email: string
+}
+
 export interface NavItem {
   title: string
   href?: string

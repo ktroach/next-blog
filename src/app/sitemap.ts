@@ -45,6 +45,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/dashboard/stores",
     "/dashboard/billing",
     "/dashboard/purchases",
+    "/admin/blog",
   ].map((route) => ({
     url: `${siteConfig.url}${route}`,
     lastModified: new Date().toISOString(),
