@@ -142,12 +142,6 @@ export function AdminBlogPosts(allPosts: any) {
 
   console.log(">>> blog-list >>> data >>> ", data)
 
-  // title
-  // description
-  // date
-  // published
-  // readingTime
-
   const table = useReactTable({
     data,
     columns,
@@ -173,9 +167,9 @@ export function AdminBlogPosts(allPosts: any) {
         {/* Filter Input Field */}
         <Input
           placeholder="Filter posts..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn("title")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
