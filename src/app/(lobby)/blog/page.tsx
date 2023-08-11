@@ -34,7 +34,7 @@ export default function BlogPage() {
         {posts.map((post, i) => (
           <Link key={post.slug} href={post.slug}>
             <article className="flex flex-col space-y-2.5">
-              <AspectRatio ratio={16 / 9}>
+              <AspectRatio ratio={4 / 4}>
                 {post.image ? (
                   <Image
                     src={post.image}

@@ -7,13 +7,12 @@ import type { cartItemSchema, checkoutItemSchema } from "@/lib/validations/cart"
 import { type Icons } from "@/components/icons"
 
 export type Blog = {
-  id: string
   title: string
   description: string
-  datetime: string
-  status: "preview" | "published" | "deleted" | "expired"
+  date: string
+  published: boolean, 
+  readingTime: number
 }
-
 
 export type Payment = {
   id: string
