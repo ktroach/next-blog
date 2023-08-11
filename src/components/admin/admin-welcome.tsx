@@ -1,29 +1,49 @@
-"use client"
+// "use client"
 
-import { useState, useEffect } from "react";
-import { useOrganization } from "@clerk/nextjs";
-import type { OrganizationMembershipResource } from "@clerk/types";
+// import { useState } from "react";
+// import { useOrganization, useUser } from "@clerk/nextjs";
+// import type {
+//     MembershipRole,
+//     OrganizationMembershipResource,
+//   } from "@clerk/types";
+// import { useOrganizationList } from "@clerk/nextjs"
 
-export const AdminWelcome = () => {
-    const {
-        organization: currentOrganization,
-        membership,
-        isLoaded,
-    } = useOrganization();
+// export const AdminWelcome = () => {
+//     const {
+//         organization: currentOrganization,
+//         isLoaded,
+//     } = useOrganization();
 
-    // if (!isLoaded || !currentOrganization) {
-    //     return null;
-    // }
+//     console.log(">>> isLoaded >>> ", isLoaded);
+//     console.log(">>> currentOrganization >>> ", currentOrganization);
 
-    const isAdmin = membership && membership.role === "admin";
+//     const {
+//         user: { id: userId },
+//     } = useUser();  
+//     console.log(">>> userId >>> ", userId);  
 
-    // if (!isAdmin) {
-    //     return null;
-    // }
+//     const { membershipList, membership } = useOrganization({
+//         membershipList: {},
+//     });
+//     console.log(">>> membershipList >>> ", membershipList);
+    
+//     const { organizationList } = useOrganizationList()
+//     console.log(">>> organizationList >>> ", organizationList);
 
-    return (
-        <>
-            <h4>Welcome, Admin!</h4>
-        </>
-    );
-};
+//     // if (!isLoaded || !currentOrganization) {
+//     //     return null;
+//     // }
+
+//     const isAdmin = membership && membership.role === "admin";
+//     console.log(">>> membership >>> ", membership);
+
+//     // if (!isAdmin) {
+//     //     return null;
+//     // }
+
+//     return (
+//         <>
+//             <h4>Welcome, Admin!</h4>
+//         </>
+//     );
+// };

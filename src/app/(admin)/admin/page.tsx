@@ -6,8 +6,8 @@ import { Icons } from "@/components/icons"
 import { Header } from "@/components/header";
 import { Shell } from "@/components/shells/shell";
 
-import { AdminWelcome } from "@/components/admin/admin-welcome";
 import { OrganizationList } from "@/components/admin/org-list";
+import { currentUser } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -15,7 +15,19 @@ export const metadata: Metadata = {
   description: "Manage your Site",
 }
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  const user = await currentUser()
+  console.log(">>>> admin page >> user >>>> ", user)
+
+  const email =
+    user?.emailAddresses?.find((e) => e.id === user.primaryEmailAddressId)
+      ?.emailAddress ?? "";
+
+  console.log(">>>> admin page >>>>  user email >>> ", email);
+
+  const firstName = user?.firstName ? user.firstName : "" ;
+  console.log(">>>> admin page >>>>  first name >>> ", firstName);
+
   return (
     <Shell variant="sidebar">
       <Header
@@ -26,8 +38,8 @@ export default function AdminPage() {
 
       <div className="w-full overflow-hidden">
       <Alert>
-        <Icons.terminal className="h-4 w-4" aria-hidden="true" />
-        <AlertTitle><AdminWelcome /></AlertTitle>
+        {/* <Icons.terminal className="h-4 w-4" aria-hidden="true" /> */}
+        <AlertTitle>Welcome, {firstName}!</AlertTitle>
         <AlertDescription>
           You are currently in the Admin Dashboard where you can manage the content and settings of your site and blogs. 
         </AlertDescription>

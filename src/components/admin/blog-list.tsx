@@ -320,7 +320,7 @@ export function AdminBlogPosts() {
       <div className="flex items-center py-4">
         {/* Filter Input Field */}
         <Input
-          placeholder="Filter emails..."
+          placeholder="Filter posts..."
           value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("email")?.setFilterValue(event.target.value)

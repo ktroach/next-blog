@@ -4,6 +4,9 @@ import * as React from "react"
 import Link from "next/link"
 import type { MainNavItem } from "@/types"
 
+// import { useAuth } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
+
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import {
@@ -22,6 +25,16 @@ interface MainNavProps {
 }
 
 export function MainNav({ items }: MainNavProps) {
+  // const { isLoaded, userId, sessionId, getToken } = useAuth();
+  const { isLoaded, isSignedIn, user } = useUser();
+
+  // In case the user signs out while on the page.
+  if (!isLoaded || !user) {
+    
+  }
+  console.log(">>>> main-nav >>> user >>>> ", user)
+
+
   return (
     <div className="hidden gap-6 lg:flex">
       <Link

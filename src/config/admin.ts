@@ -43,8 +43,8 @@ export const adminConfig: AdminConfig = {
       items: [],
     },  
     {
-      title: "Donations",
-      href: "/admin/donations",
+      title: "Payments",
+      href: "/admin/payments",
       icon: "dollarSign",
       items: [],
     },                   

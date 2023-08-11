@@ -34,13 +34,11 @@ export default function AdminBlogPage() {
         size="sm"
       />
       <div className="w-full overflow-hidden">
-        
-      <AdminBlogPosts />
 
-
+        <h3>Recent Posts</h3>
         <div className="my-8 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {posts.map((post, i) => (
-            <Link key={post.slug} href={post.slug}>
+            <Link key={post.slug} href="#">
               <article className="flex flex-col space-y-2.5">
                 <h2 className="line-clamp-1 text-xl font-semibold">
                   {post.title}
@@ -57,6 +55,11 @@ export default function AdminBlogPage() {
             </Link>
           ))}
         </div>
+
+        <h3>All Posts</h3>        
+        <AdminBlogPosts />
+
+
       </div>
     </Shell>
   )
