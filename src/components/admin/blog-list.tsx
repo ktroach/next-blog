@@ -140,11 +140,9 @@ export function AdminBlogPosts(allPosts: any) {
 
   const data: Blog[] = allPosts && allPosts?.allPosts ? allPosts.allPosts : [];
 
-  
+//   console.log(">>> blog-list >>> data >>> ", data)
 
-  console.log(">>> blog-list >>> data >>> ", data)
-
-  const table = useReactTable({
+  const table = useReactTable<Blog>({
     data,
     columns,
     onSortingChange: setSorting,
@@ -161,7 +159,11 @@ export function AdminBlogPosts(allPosts: any) {
       columnVisibility,
       rowSelection,
     },
-  })
+  });
+
+ React.useEffect(() => {
+    table.getColumn("description")?.toggleVisibility(false);
+ }, []);
 
   return (
     <div className="w-full">
