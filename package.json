@@ -1,10 +1,10 @@
 {
-  "name": "skateshop",
+  "name": "next-blog",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "build": "contentlayer build && next build",
-    "dev": "next dev",
+    "dev": "contentlayer build && next dev",
     "start": "next start",
     "test": "jest --silent",
     "lint": "next lint",

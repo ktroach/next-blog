@@ -140,6 +140,8 @@ export function AdminBlogPosts(allPosts: any) {
 
   const data: Blog[] = allPosts && allPosts?.allPosts ? allPosts.allPosts : [];
 
+  
+
   console.log(">>> blog-list >>> data >>> ", data)
 
   const table = useReactTable({
@@ -166,12 +168,12 @@ export function AdminBlogPosts(allPosts: any) {
       <div className="flex items-center py-4">
         {/* Filter Input Field */}
         <Input
-          placeholder="Filter posts..."
+          placeholder="Filter Posts..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-sm mx-1"
         />
         {/* Columns Visible Dropdown */}
         <DropdownMenu>

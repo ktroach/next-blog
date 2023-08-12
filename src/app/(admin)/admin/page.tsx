@@ -41,7 +41,7 @@ export default async function AdminPage() {
         {/* <Icons.terminal className="h-4 w-4" aria-hidden="true" /> */}
         <AlertTitle>Welcome, {firstName}!</AlertTitle>
         <AlertDescription>
-          You are currently in the Admin Dashboard where you can manage the content and settings of your site and blogs. 
+          You are currently in the Admin Dashboard where you can manage the content and settings of your site. 
         </AlertDescription>
       </Alert>        
       </div>

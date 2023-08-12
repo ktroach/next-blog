@@ -77,6 +77,11 @@ export const siteConfig = {
           external: false,
         },
         {
+          title: "New Page",
+          href: "/newpage",
+          external: false,
+        },        
+        {
           title: "Terms",
           href: "/terms",
           external: false,

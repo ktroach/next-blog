@@ -22,6 +22,7 @@ export default authMiddleware({
     "/privacy(.*)",
     "/api(.*)",
     "/admin(.*)",
+    "/newpage(.*)",    
   ],
   async afterAuth(auth, req) {
     if (auth.isPublicRoute) {
