@@ -4,11 +4,6 @@ This is just a prototype for a simple Blog site built in NextJS. Leveraging Cont
 
 How does it work? Checkout ContentLayer's docs on how it is similar to a headless CMS but without the overhead and complexity that is typically associated with a CMS. ContentLayer allows you to write your content in MDX, it compiles and generates the MDX into an EJS module. The generated EJS modules are packaged so that you can import them into your React components. See https://website-git-new-landing-page-schick.vercel.app/docs/concepts/how-contentlayer-works
 
-Forked from Skateshop13. Credits to sadmann7 for creating the stack and the excellent NextJS project, Skateshop13:
-https://github.com/sadmann7
-https://github.com/sadmann7/skateshop
-
-
 > **Warning**
 > This project is still in development and is not ready for production use.
 >

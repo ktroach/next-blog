@@ -7,11 +7,15 @@ import type { cartItemSchema, checkoutItemSchema } from "@/lib/validations/cart"
 import { type Icons } from "@/components/icons"
 
 export type Blog = {
+  _id: string
+  authors: string[]
   title: string
-  description: string
+  description?: string | undefined
   date: string
-  published: boolean, 
+  published: boolean 
   readingTime: number
+  slug: string
+  slugAsParams: string
 }
 
 export type Payment = {
@@ -80,7 +84,7 @@ export interface DataTableFilterableColumn<TData>
   options: Option[]
 }
 
-// export type CartItem = z.infer<typeof cartItemSchema>
+export type CartItem = z.infer<typeof cartItemSchema>
 
 export type CheckoutItem = z.infer<typeof checkoutItemSchema>
 

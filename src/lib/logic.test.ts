@@ -18,12 +18,15 @@ describe('sumNumbers', () => {
 
   it('should return NaN for non-numeric inputs', () => {
     // Test case 5: String inputs
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
     expect(sumNumbers('2' as any, 3 as any)).toBeNaN();
 
     // Test case 6: Object inputs
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
     expect(sumNumbers({} as any, 5 as any)).toBeNaN();
 
     // Test case 7: Undefined inputs
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
     expect(sumNumbers(undefined as any, 10 as any)).toBeNaN();
   });
 });

@@ -23,6 +23,8 @@ import { Icons } from "@/components/icons"
 import { MainNav } from "@/components/layouts/main-nav"
 import { MobileNav } from "@/components/layouts/mobile-nav"
 import { ThemeToggle } from "./theme-toggle"
+import { AdminNav } from "./admin-nav"
+
 
 interface SiteHeaderProps {
   user: User | null
@@ -31,13 +33,13 @@ interface SiteHeaderProps {
 export function SiteHeader({ user }: SiteHeaderProps) {
   const initials = `${user?.firstName?.charAt(0) ?? ""} ${
     user?.lastName?.charAt(0) ?? ""
-  }`
+  }`;
+
   const email =
     user?.emailAddresses?.find((e) => e.id === user.primaryEmailAddressId)
-      ?.emailAddress ?? ""
+      ?.emailAddress ?? "";
 
   return (
-    // eslint-disable-next-line tailwindcss/no-custom-classname
     <header className="sticky top-0 z-[1000] w-full border-b bg-white dark:bg-black">
       <div className="container flex h-16 items-center">
         <MainNav items={siteConfig.mainNav} />
@@ -47,10 +49,11 @@ export function SiteHeader({ user }: SiteHeaderProps) {
         />
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-2">
-
+            <AdminNav />
             <ThemeToggle />
-            <CartSheet />
-            
+
+            {user?.username === "admin" ? (<></>) : (<><CartSheet /></>)}
+            {/* <CartSheet /> */}
 
             {user ? (
               <DropdownMenu>

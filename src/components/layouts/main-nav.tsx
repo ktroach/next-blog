@@ -81,7 +81,7 @@ export function MainNav({ items }: MainNavProps) {
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>   
-        <NavigationMenuItem key="admin-nav">
+        {/* <NavigationMenuItem key="admin-nav">
           <Link href="/admin" legacyBehavior passHref>
             <NavigationMenuLink
               className={cn(navigationMenuTriggerStyle(), "h-auto")}
@@ -89,7 +89,7 @@ export function MainNav({ items }: MainNavProps) {
               Admin
             </NavigationMenuLink>
           </Link>
-        </NavigationMenuItem>                
+        </NavigationMenuItem>                 */}
         </NavigationMenuList>
       </NavigationMenu>
     </div>

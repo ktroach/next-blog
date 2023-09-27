@@ -1,4 +1,6 @@
-import { defineDocumentType, makeSource } from "contentlayer/source-files"
+// import { defineDocumentType, makeSource } from "contentlayer/source-files"
+import { defineDocumentType } from 'contentlayer/source-files'
+import { makeSource } from 'contentlayer/source-files'
 import rehypePrettyCode from "rehype-pretty-code"
 import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
@@ -105,7 +107,20 @@ export const Page = defineDocumentType(() => ({
   computedFields,
 }))
 
+// const syncContentFromGit = async ({ }) => {
+//   // See full example
+// }
+
+// export default makeSource((sourceKey  = 'main') => ({
+//   syncFiles: (contentDir) => syncContentFromGit({ contentDir, gitTag: sourceKey  }),
+//   contentDirPath: `./src/content/${sourceKey}`,
+//   documentTypes: [Post, Author, Page],
+//   experimental: { enableDynamicBuild: true },
+// }))
+
+
 export default makeSource({
+  disableImportAliasWarning: true,
   contentDirPath: "./src/content",
   documentTypes: [Post, Author, Page],
   mdx: {

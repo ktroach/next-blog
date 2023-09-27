@@ -1,3 +1,5 @@
+/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+
 "use client"
 
 import * as React from "react"
@@ -17,9 +19,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
-
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -38,38 +38,23 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
-import { formatDate } from "@/lib/utils"
-
+import { humanizeDate } from "@/lib/utils"
 import { Icons } from "@/components/icons"
 
 export const columns: ColumnDef<Blog>[] = [
   {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "title",
+    accessorKey: "slug",
     header: "Title",
-    cell: ({ row }) => (
-      <div className="line-clamp-1 text-muted-foreground">{row.getValue("title")}</div>
-    ),
     enableHiding: false,
+    cell: (row) => {
+      return (
+        <a href={row.row.original.slug}>
+          <div className="line-clamp-3 text-muted-foreground">
+            {row.row.original.title}
+          </div>
+        </a>
+      );
+    },
   },
   {
     accessorKey: "description",
@@ -83,7 +68,7 @@ export const columns: ColumnDef<Blog>[] = [
     header: "Date",
     cell: ({ row }) => (
       <time dateTime={row.getValue("date")} className="block text-muted-foreground">
-        {formatDate(row.getValue("date"))}
+        {humanizeDate(row.getValue("date"))}
       </time>      
     ),
   },    
@@ -94,16 +79,6 @@ export const columns: ColumnDef<Blog>[] = [
       <div className="line-clamp-3 text-muted-foreground">{row.getValue("readingTime")} mins</div>
     ),
   },  
-  {
-    accessorKey: "published",
-    header: () => <div className="text-right">Published</div>,
-    cell: ({ row }) => {
-      const published = row.getValue("published")
-      const publishedIcon = published && published === true ? (                  
-        <Icons.check className="h-4 w-4 mr-6 text-green-500" aria-hidden="true" />) : <></>;
-      return <div className="text-right font-medium">{publishedIcon}</div>
-    },
-  },
   {
     id: "actions",
     enableHiding: false,
@@ -129,7 +104,7 @@ export const columns: ColumnDef<Blog>[] = [
   },
 ]
 
-export function AdminBlogPosts(allPosts: any) {
+export function AdminBlogPosts(allPosts: unknown) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -139,8 +114,6 @@ export function AdminBlogPosts(allPosts: any) {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const data: Blog[] = allPosts && allPosts?.allPosts ? allPosts.allPosts : [];
-
-//   console.log(">>> blog-list >>> data >>> ", data)
 
   const table = useReactTable<Blog>({
     data,
@@ -175,7 +148,7 @@ export function AdminBlogPosts(allPosts: any) {
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm mx-1"
+          className="mx-1 max-w-sm"
         />
         {/* Columns Visible Dropdown */}
         <DropdownMenu>
@@ -260,7 +233,7 @@ export function AdminBlogPosts(allPosts: any) {
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredRowModel().rows.length} row(s) 
         </div>
         <div className="space-x-2">
           <Button

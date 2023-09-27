@@ -89,8 +89,8 @@ export function AddToCartForm({ productId }: AddToCartFromProps) {
               aria-hidden="true"
             />
           )}
-          Add to cart
-          <span className="sr-only">Add to cart</span>
+          Add to Cart
+          <span className="sr-only">Add to Cart</span>
         </Button>
       </form>
     </Form>

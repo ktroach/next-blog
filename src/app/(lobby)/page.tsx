@@ -29,25 +29,26 @@ import { Shell } from "@/components/shells/shell"
 // Read more: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
 export const dynamic = "force-dynamic"
 
-export default async function IndexPage() {
-  const allProducts = await db
-    .select()
-    .from(products)
-    .limit(8)
-    .orderBy(desc(products.createdAt))
+export default function IndexPage() {
 
-  const allStoresWithProductCount = await db
-    .select({
-      id: stores.id,
-      name: stores.name,
-      description: stores.description,
-      productCount: sql<number>`count(${products.id})`,
-    })
-    .from(stores)
-    .limit(4)
-    .leftJoin(products, eq(products.storeId, stores.id))
-    .groupBy(stores.id)
-    .orderBy(desc(sql<number>`count(${products.id})`))
+  // const allProducts = await db
+  //   .select()
+  //   .from(products)
+  //   .limit(8)
+  //   .orderBy(desc(products.createdAt))
+
+  // const allStoresWithProductCount = await db
+  //   .select({
+  //     id: stores.id,
+  //     name: stores.name,
+  //     description: stores.description,
+  //     productCount: sql<number>`count(${products.id})`,
+  //   })
+  //   .from(stores)
+  //   .limit(4)
+  //   .leftJoin(products, eq(products.storeId, stores.id))
+  //   .groupBy(stores.id)
+  //   .orderBy(desc(sql<number>`count(${products.id})`))
 
   return (
     <Shell as="div" className="gap-12">
