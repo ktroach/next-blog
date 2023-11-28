@@ -11,6 +11,7 @@ import {
   text,
   timestamp,
   varchar,
+  datetime
 } from "drizzle-orm/mysql-core"
 
 export const stores = mysqlTable("stores", {
@@ -127,3 +128,18 @@ export const addresses = mysqlTable("addresses", {
 })
 
 export type Address = InferModel<typeof addresses>
+
+export const blogPosts = mysqlTable("blog_posts", {
+  id: serial("id").primaryKey(),
+  userId: varchar("userId", { length: 191 }),
+  title: varchar("title", { length: 191 }).notNull(),
+  description: text("description"),
+  imageUrl: text("imageUrl"),
+  body: text("body"),
+  visible: boolean("visible").notNull().default(true),
+  published: boolean("published").notNull().default(false),
+  updatedAt: datetime("updatedAt"),
+  createdAt: datetime("createdAt"),
+})
+
+export type BlogPost = InferModel<typeof blogPosts>

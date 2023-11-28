@@ -26,111 +26,102 @@ type Inputs = z.infer<typeof blogSchema>
 import { MdEditor } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 
-
-
-
 export function AddBlogPostForm() {
-    const router = useRouter()
+  const router = useRouter()
 
-    const [isPending, startTransition] = React.useTransition()
-    const [text, setText] = useState('# Hello Editor');
-  
-    // react-hook-form
-    const form = useForm<Inputs>({
-      resolver: zodResolver(blogSchema),
-      defaultValues: {
-        title: "",
-        description: "",
-        image: "",
-        body: "",
-      },
+  const [isPending, startTransition] = React.useTransition()
+  const [body, setBody] = useState('# Title ');
+
+  // react-hook-form
+  const form = useForm<Inputs>({
+    resolver: zodResolver(blogSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      image: "",
+      body: "",
+    },
+  })
+
+  function onSubmit(data: Inputs) {
+    startTransition(async () => {
+      try {
+        console.log(">>> input data >>> ", data);
+        const response = await fetch("/api/blog/create", {
+          method: "POST",
+          body: JSON.stringify({
+            title: data.title,
+            description: data.description,
+            image: data.image,
+            body: body
+          }),
+        })
+      } catch (err) {
+        console.error(err)
+      }
     })
-  
-    function onSubmit(data: Inputs) {
-      //if (!isAdmin) return
-  
-      startTransition(async () => {
-        try {
-            console.log(">>> input data >>> ", data)
-        } catch (err) {
-          console.error(err)
-        }
-      })
-    }
-  
-    return (
-      <Form {...form}>
-        <form
-          className="grid gap-4"
-          onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
-        >
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Title</FormLabel>
-                <FormControl>
-                  <Input placeholder="Title goes here..." {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Description</FormLabel>
-                <FormControl>
-                  <Input placeholder="Give your blog a description..." {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />    
-          <FormField
-            control={form.control}
-            name="image"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Image</FormLabel>
-                <FormControl>
-                  <Input placeholder="Type in the Image URL here..." {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />      
-
-          <MdEditor modelValue={text} onChange={setText} language='en-US' />
-
-          {/* <FormField
-            control={form.control}
-            name="image"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Open Content Editor</FormLabel>
-                <FormControl>
-                    <Textarea></Textarea>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
-
-          <Button disabled={isPending}>
-            {isPending && (
-              <Icons.spinner
-                className="mr-2 h-4 w-4 animate-spin"
-                aria-hidden="true"
-              />
-            )}
-            Submit
-            <span className="sr-only">Submit</span>
-          </Button>
-        </form>
-      </Form>
-    )
   }
+
+  return (
+    <Form {...form}>
+      <form
+        className="grid gap-4"
+        onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
+      >
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Title</FormLabel>
+              <FormControl>
+                <Input placeholder="Title goes here..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Input placeholder="Give your blog a description..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Image</FormLabel>
+              <FormControl>
+                <Input placeholder="Type in the Image URL here..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button className='h-auto bg-blue-500 hover:bg-blue-700' disabled={isPending}>
+          {isPending && (
+            <Icons.spinner
+              className="mr-2 h-4 w-4 animate-spin"
+              aria-hidden="true"
+            />
+          )}
+          Save Changes
+          <span className="sr-only">Submit</span>
+        </Button>
+
+        <MdEditor modelValue={body} onChange={setBody} language='en-US' />
+
+      </form>
+    </Form>
+  )
+}

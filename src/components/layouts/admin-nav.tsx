@@ -34,7 +34,7 @@ export function AdminNav() {
               <NavigationMenuLink
                 className={cn(
                   navigationMenuTriggerStyle(),
-                  "h-auto bg-blue-500 text-white hover:bg-blue-300 text-sm"
+                  "h-auto bg-blue-500 text-white hover:text-white hover:bg-blue-700 text-sm"
                 )}
               >
                 <span className="pr-1">Admin</span>
