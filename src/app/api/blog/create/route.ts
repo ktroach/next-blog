@@ -9,6 +9,7 @@ import { writeFileSync } from "fs"
 import generateUniqueFilename from './fileUtils';
 import { generateFormattedDate } from './dateUtils';
 import { generateMDXFrontmatter } from "./mdxUtils"
+import { spawnProcess } from "./processUtils"
 
 export async function POST(req: Request) {
     const data = blogSchema.parse(await req.json());
@@ -51,6 +52,8 @@ export async function POST(req: Request) {
             const mdxContentPath: string = `./src/content/blog`;
             const mdxFileName: string  = `${mdxContentPath}/${generatedFilename}`;
             writeFileSync(mdxFileName, mdxFileContent); 
+
+            spawnProcess("npm run contentlayer:build", []);
 
             // insert the blog data to the database -- this may not be needed using the contentlayer model 
             await db.insert(blogPosts).values({
