@@ -1,5 +1,8 @@
 import { spawn } from 'child_process';
 
+// this is a little too hacky and needs to be refactored 
+// may want to convert this from Promise based to async based syntax and return the return code
+// so that the caller can know if it was successful or not. 
 export const spawnProcess = (
   command: string,
   args: string[],

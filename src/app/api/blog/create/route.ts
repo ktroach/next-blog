@@ -1,70 +1,90 @@
 import { db } from "@/db"
 import { blogPosts } from "@/db/schema"
-// import { env } from "@/env.mjs"
+import { eq, and } from 'drizzle-orm';
 import { currentUser } from "@clerk/nextjs"
-import { eq } from "drizzle-orm"
 import { z } from "zod"
 import { blogSchema } from "@/lib/validations/blog"
 import { writeFileSync } from "fs"
-import generateUniqueFilename from './fileUtils';
-import { generateFormattedDate } from './dateUtils';
+import { generateUniqueFilename } from './fileUtils';
+import { generateMDXDate } from './dateUtils';
 import { generateMDXFrontmatter } from "./mdxUtils"
 import { spawnProcess } from "./processUtils"
 
 export async function POST(req: Request) {
+    console.log(">>> ENTERED: POST Blog route"); 
     const data = blogSchema.parse(await req.json());
-    console.log(">>> users input parsed on server >>>> ", data);
+    console.log(">>> data >>>> ", data);
 
     try {
         const user = await currentUser();
+        const userId = user && user?.id ? user.id : undefined; 
+        const userName = user && user?.username ? user.username : ""; 
+        console.log(">>> userId >>> ", userId); 
+        console.log(">>> userName >>> ", userName); 
 
-        const existingBlogPost = await db.query.blogPosts.findFirst({
-            where: eq(blogPosts.title, data.title),
-        });
+        // if we don't have a userId, we should probably exit out of this method. only create a blog post if it is a valid user.  
+        if (!userId) {
+            console.log(">>> userId does not exist >>> ");
+            return new Response(null, { status: 404 });            
+        }
 
-        if (existingBlogPost) {
-            console.log(">>> blog post already exists >>> ", existingBlogPost);
+        const existingBlogPost = await db.select().from(blogPosts).where(
+            and(
+              eq(blogPosts.title, data.title),
+              eq(blogPosts.userId, userId)
+            )
+        );
+
+        console.log(">>> existingBlogPost >>> ", existingBlogPost); 
+
+        if (existingBlogPost.length > 0) {
+            console.log(">>> Blog post already exists >>> ", existingBlogPost);
             return new Response(null, { status: 204 });
         }
 
-        if (!existingBlogPost) {
-            // write the MDX file to the server 
-            
-            // auto-generate an image using ai apis to use for default images 
+        // write the MDX file to the server 
+        
+        // TODO: if no data.image is specified, create an image and store it on the cdn... 
 
-            // TODO - Fix authors
-            // generate a date 
-            const mdxDate = generateFormattedDate();
-            const MdxMeta = {
-                title: data.title,
-                description: data.description,
-                image: data.image,
-                date: mdxDate
-            };
-            const mdxFrontMatter = generateMDXFrontmatter(MdxMeta);
-            const author = 'ktroach'; // look at authors yaml
-            const generateAuthors = `authors:\n\t- ${author}\n`;
-            const mdxFileContent = `${mdxFrontMatter}${generateAuthors}\n${data.body}`;
+        // TODO: If the author mdx file does not exist, create it 
+        
 
-            // generate a unique filename
-            const generatedFilename = await generateUniqueFilename('.mdx');
-            console.log('generatedFilename:', generatedFilename);
-            const mdxContentPath: string = `./src/content/blog`;
-            const mdxFileName: string  = `${mdxContentPath}/${generatedFilename}`;
-            writeFileSync(mdxFileName, mdxFileContent); 
+        const mdxDate = generateMDXDate();
 
-            spawnProcess("npm run contentlayer:build", []);
+        const MdxMeta = {
+            title: data.title,
+            description: data.description,
+            image: data.image,
+            date: mdxDate
+        };
 
-            // insert the blog data to the database -- this may not be needed using the contentlayer model 
-            await db.insert(blogPosts).values({
-                userId: user?.id,
-                title: data.title,
-                description: data.description,
-                imageUrl: data.image,
-                body: mdxFileContent,
-                createdAt: new Date(),
-            });
-        }
+        const mdxFrontMatter = generateMDXFrontmatter(MdxMeta, userName);
+        const mdxFileContent = `${mdxFrontMatter}\n${data.body}`;
+
+        // generate a unique filename
+        const generatedFilename = generateUniqueFilename('.mdx');
+        console.log('generatedFilename:', generatedFilename);
+        
+        const mdxContentPath: string = `./src/content/blog`;
+        const mdxFileName: string  = `${mdxContentPath}/${generatedFilename}`;
+        
+        writeFileSync(mdxFileName, mdxFileContent); 
+
+        console.log(">>> Building ContentLayer Files... "); 
+
+        await spawnProcess("npm run contentlayer:build", []); 
+        
+        console.log(">>> ContentLayer Build Complete."); 
+
+        // insert the blog data to the database
+        await db.insert(blogPosts).values({
+            userId: userId,
+            title: data.title,
+            description: data.description,
+            imageUrl: data.image,
+            body: mdxFileContent,
+            createdAt: new Date(),
+        });
 
         return new Response(null, { status: 204 });
     } catch (error) {

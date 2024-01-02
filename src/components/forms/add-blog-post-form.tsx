@@ -101,7 +101,7 @@ export function AddBlogPostForm() {
 
   return (
     <>
-      <Label className='text-md'>
+      <Label className='text-lg'>
         Start creating your blog post here. When you're done, hit "Save Draft" to save the first draft of your blog post.  This will not publish the post to the public site yet, it will just save a draft that you can publish when you're ready to.
       </Label>
       <Separator />
@@ -141,7 +141,7 @@ export function AddBlogPostForm() {
             name="image"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Image</FormLabel>
+                <FormLabel>Image URL</FormLabel>
                 <FormControl>
                   <Input placeholder="Type in the Image URL here..." {...field} />
                 </FormControl>

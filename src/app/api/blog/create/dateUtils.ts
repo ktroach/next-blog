@@ -1,4 +1,4 @@
-export const generateFormattedDate = (): string => {
+export const generateMDXDate = (): string => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed, so add 1
