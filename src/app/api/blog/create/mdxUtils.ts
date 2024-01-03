@@ -17,3 +17,12 @@ export const generateMDXFrontmatter = (metadata: Record<string, unknown>, author
     // return the YAML for the frontmatter section 
     return `---\n${frontmatterYAML}\n---\n`;
 };
+
+export const generateAuthorFrontmatter = (metadata: Record<string, unknown>) => {
+    // metadata is of type object and here we are extracting the properties and joining them into a string
+    const frontmatterYAML = Object.entries(metadata)
+        .map(([key, value]) => `${key}: ${JSON.stringify(value)}`)
+        .join('\n');
+    // return the YAML for the frontmatter section 
+    return `---\n${frontmatterYAML}\n---\n`;    
+}; 

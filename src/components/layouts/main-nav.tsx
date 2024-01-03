@@ -28,12 +28,12 @@ export function MainNav({ items }: MainNavProps) {
   // const { isLoaded, userId, sessionId, getToken } = useAuth();
   const { isLoaded, isSignedIn, user } = useUser();
 
-  // In case the user signs out while on the page.
-  if (!isLoaded || !user) {
-    
-  }
   console.log(">>>> main-nav >>> user >>>> ", user)
 
+  // In case the user signs out while on the page.
+  if (!isLoaded) {
+    return (<>Loading...</>); 
+  }
 
   return (
     <div className="hidden gap-6 lg:flex">

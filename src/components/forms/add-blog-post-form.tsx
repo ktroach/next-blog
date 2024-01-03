@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -23,7 +23,7 @@ import { blogSchema } from "@/lib/validations/blog"
 
 type Inputs = z.infer<typeof blogSchema>
 
-import { MdEditor, ToolbarNames } from 'md-editor-rt';
+import { MdEditor, type ToolbarNames } from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
 
 export function AddBlogPostForm() {
@@ -31,6 +31,7 @@ export function AddBlogPostForm() {
 
   const [isPending, startTransition] = React.useTransition();
   const [body, setBody] = useState('');
+  const [reloadContent, setReloadContent] = useState(false); 
 
   const toolbarOptions: ToolbarNames[] = [
     'bold',
@@ -82,7 +83,9 @@ export function AddBlogPostForm() {
         console.log(">>> response >>> ", response);
 
 
-
+        if (response.status === 204) {
+          setReloadContent(true);
+        }
 
         toast.success("Blog added successfully.")
         form.reset()
